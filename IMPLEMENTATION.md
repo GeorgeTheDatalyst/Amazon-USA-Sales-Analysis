@@ -94,4 +94,3 @@ This project is licensed under the MIT License.
 
 ---
 
-Let me know if you'd like me to generate the actual SQL `CREATE TABLE` statements or a visual ERD diagram to include in your repo!
