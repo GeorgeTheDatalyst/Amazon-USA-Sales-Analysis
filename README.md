@@ -111,9 +111,75 @@ CREATE TABLE products (
     category_id INT NOT NULL
 );
 ```
+### `category`
 ```sql
 CREATE TABLE category(
 category_id INT IDENTITY(1,1) PRIMARY KEY,
 category_name NVARCHAR(50),
+)
+```
+### `inventory`
+```sql
+CREATE TABLE inventory(
+inventory_id INT IDENTITY(1,1) PRIMARY KEY,
+product_id INT,
+stock INT,
+warehouse_id INT,
+last_stock_date DATE
+```
+### `order_items`
+```sql
+CREATE TABLE order_items(
+order_item_id INT PRIMARY KEY,
+order_id INT,
+product_id INT,
+quantity INT,
+price_per_unit FLOAT
+```
+### `customers`
+```sql
+CREATE TABLE customers(
+customer_id INT PRIMARY KEY,
+first_name NVARCHAR(50),
+last_name NVARCHAR(50),
+state NVARCHAR(50),
+)
+```
+### `orders`
+```sql
+CREATE TABLE orders(
+order_id INT PRIMARY KEY,
+order_date DATE,
+customer_id INT,
+seller_id INT,
+order_status NVARCHAR(50)
+)
+```
+### `payments`
+```sql
+CREATE TABLE payments(
+payment_id INT PRIMARY KEY,
+order_id INT,
+payment_date NVARCHAR(50),
+payment_status NVARCHAR(50)
+)
+```
+### `shipping`
+```sql
+CREATE TABLE shipping (
+    shipping_id INT PRIMARY KEY,
+    order_id INT NOT NULL,
+    shipping_date DATE,
+    return_date DATE,
+    shipping_providers NVARCHAR(50),
+    delivery_status NVARCHAR(50)
+);
+```
+### `sellers`
+```sql
+CREATE TABLE sellers(
+seller_id INT PRIMARY KEY,
+seller_name NVARCHAR(50),
+origin NVARCHAR(50)
 )
 ```
