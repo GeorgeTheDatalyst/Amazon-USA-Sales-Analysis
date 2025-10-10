@@ -1,89 +1,14 @@
 # 🛒 Amazon Product Sales Analysis
 
 Welcome to the **Amazon Product Sales Analysis** project — a deep dive into transactional data from a simulated Amazon-like marketplace. This project leverages SQL to uncover insights across sales, inventory, customer behavior, and operational efficiency.
-## 🗄️ Database Setup & Data Loading
-The dataset was imported into SQL Server using a custom table schema and BULK INSERT for efficient loading. This enabled structured querying and exploration during the EDA phase.
 
-### 🧱 Table Schema
-```
-CREATE TABLE products(
-product_id INT PRIMARY KEY,
-product_name NVARCHAR(50),
-price FLOAT,
-cogs FLOAT,
-category_id INT NOT NULL
-)
-GO
-
-CREATE TABLE category(
-category_id INT IDENTITY(1,1) PRIMARY KEY,
-category_name NVARCHAR(50),
-)
-GO
-
-CREATE TABLE inventory(
-inventory_id INT IDENTITY(1,1) PRIMARY KEY,
-product_id INT,
-stock INT,
-warehouse_id INT,
-last_stock_date DATE
-)
-GO
-
-CREATE TABLE order_items(
-order_item_id INT PRIMARY KEY,
-order_id INT,
-product_id INT,
-quantity INT,
-price_per_unit FLOAT
-)
-GO
-
-CREATE TABLE customers(
-customer_id INT PRIMARY KEY,
-first_name NVARCHAR(50),
-last_name NVARCHAR(50),
-state NVARCHAR(50),
-)
-GO
-
-CREATE TABLE orders(
-order_id INT PRIMARY KEY,
-order_date DATE,
-customer_id INT,
-seller_id INT,
-order_status NVARCHAR(50)
-)
-GO
-
-CREATE TABLE payments(
-payment_id INT PRIMARY KEY,
-order_id INT,
-payment_date NVARCHAR(50),
-payment_status NVARCHAR(50)
-)
-GO
-
-CREATE TABLE shipping (
-    shipping_id INT PRIMARY KEY,
-    order_id INT NOT NULL,
-    shipping_date DATE,
-    return_date DATE,
-    shipping_providers NVARCHAR(50),
-    delivery_status NVARCHAR(50)
-);
-GO
-
-CREATE TABLE sellers(
-seller_id INT PRIMARY KEY,
-seller_name NVARCHAR(50),
-origin NVARCHAR(50)
-)
-```
+---
 
 ## 📊 Project Overview
 
 This repository contains a suite of SQL queries and stored procedures designed to answer key business questions and challenges faced by e-commerce platforms. The goal is to transform raw data into actionable insights for sales optimization, inventory management, and customer engagement.
+
+---
 
 ## 🧠 Key Analytical Questions & Challenges
 
@@ -158,6 +83,8 @@ This repository contains a suite of SQL queries and stored procedures designed t
 - Find top 10 products with highest **revenue drop** from 2022 to 2023.
 - Challenge: Include **product ID**, **name**, **category**, **2022 vs 2023 revenue**, and **decrease ratio**.
 
+---
+
 ## 🧪 Advanced SQL Tasks
 
 ### 🔄 Stored Procedure: Record Sale
@@ -170,18 +97,23 @@ This repository contains a suite of SQL queries and stored procedures designed t
 - Adds new categories if needed.
 - Updates `products` table with missing entries.
 
-## 🛠️ Tech Stack
+---
 
-- **SQL Server**
-- **T-SQL Stored Procedures**
-- **Relational Schema Design**
-- **Data Warehousing Concepts**
+## 🗃️ Database Schema
 
-## 🤝 Contributing
-
-Pull requests are welcome! If you have new query ideas or optimizations, feel free to fork and submit.
-
-## 📜 License
-
-This project is licensed under the MIT License.
+### `products`
+```sql
+CREATE TABLE products (
+    product_id INT PRIMARY KEY,
+    product_name NVARCHAR(50),
+    price FLOAT,
+    cogs FLOAT,
+    category_id INT NOT NULL
+);
+```
+```sql
+CREATE TABLE category(
+category_id INT IDENTITY(1,1) PRIMARY KEY,
+category_name NVARCHAR(50),
+)
 ```
