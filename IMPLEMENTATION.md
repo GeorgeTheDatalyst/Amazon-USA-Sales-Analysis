@@ -1,5 +1,6 @@
 # 🛒 Amazon E-Commerce Database Schema
 
+![ERD Diagram](tests/dfd amazon.png)
 
 
 This repository contains the Entity-Relationship Diagram (ERD) and SQL schema for an Amazon-style e-commerce system. It models core business entities such as products, orders, customers, inventory, payments, and shipping — designed for robust analytics and transactional integrity.
