@@ -87,18 +87,18 @@ This repository contains a suite of SQL queries and stored procedures designed t
 
 ## 🧪 Advanced SQL Tasks
 
-### 🔄 Stored Procedure: Record Sale
+### 🔄 19. Stored Procedure: Record Sale
 - Inserts a new sale into `orders` and `order_items`.
 - Updates `inventory` to reduce stock immediately after sale.
 
-### 🧠 GrandMaster Stored Procedure: Inventory Management
+### 🧠 20. GrandMaster Stored Procedure: Inventory Management
 - Adds or updates products in `inventory`.
 - Inserts new products if they don’t exist.
 - Adds new categories if needed.
 - Updates `products` table with missing entries.
 
 ---
-# 📦 `product_returns` Stored Procedure
+# 📦 21. `product_returns` Stored Procedure
 
 ## Overview
 The `product_returns` stored procedure handles the return process for a specific product in a customer order. It ensures that returned items are properly recorded, inventory is updated, and associated order, shipping, and payment statuses are adjusted accordingly.
