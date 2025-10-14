@@ -98,6 +98,90 @@ This repository contains a suite of SQL queries and stored procedures designed t
 - Updates `products` table with missing entries.
 
 ---
+# 📦 `product_returns` Stored Procedure
+
+## Overview
+The `product_returns` stored procedure handles the return process for a specific product in a customer order. It ensures that returned items are properly recorded, inventory is updated, and associated order, shipping, and payment statuses are adjusted accordingly.
+
+---
+
+## 🔧 Functionality
+
+When executed, the procedure performs the following operations:
+
+1. **Validates Inputs**:
+   - Checks if the provided `@OrderID` exists in the `orders` table.
+   - Checks if the provided `@ProductID` exists in the `inventory` table.
+   - Ensures the `@Quantity` is greater than zero.
+
+2. **Prevents Duplicate Returns**:
+   - If the order has already been marked as `'Returned'`, the procedure raises an error and halts execution.
+
+3. **Updates Related Tables**:
+   - **`orders`**: Sets `order_status` to `'Returned'`.
+   - **`shipping`**: Sets `delivery_status` to `'Returned'` and logs the return date.
+   - **`payments`**: Sets `payment_status` to `'Refunded'`.
+   - **`inventory`**: Increases stock by the returned quantity.
+   - **`returns_log`**: Inserts a record of the return for auditing and tracking.
+
+4. **Error Handling**:
+   - Uses `TRY...CATCH` to manage exceptions.
+   - Rolls back the transaction if any error occurs.
+   - Raises a descriptive error message to the caller.
+
+---
+
+## 📝 Parameters
+
+| Name         | Type | Description                                  |
+|--------------|------|----------------------------------------------|
+| `@OrderID`   | INT  | ID of the order being returned               |
+| `@ProductID` | INT  | ID of the product being returned             |
+|
+
+**`returns_log`**: Inserts a record of the return for auditing and tracking.
+
+4. **Error Handling**:
+   - Uses `TRY...CATCH` to manage exceptions.
+   - Rolls back the transaction if any error occurs.
+   - Raises a descriptive error message to the caller.
+
+---
+
+## 📝 Parameters
+
+| Name         | Type | Description                                  |
+|--------------|------|----------------------------------------------|
+| `@OrderID`   | INT  | ID of the order being returned               |
+| `@ProductID` | INT  | ID of the product being returned             |
+| `@Quantity`  | INT  | Quantity of the product being returned       |
+
+---
+
+## 🛑 Error Conditions
+
+- **Invalid Order ID**: If `@OrderID` does not exist.
+- **Invalid Product ID**: If `@ProductID` does not exist.
+- **Non-positive Quantity**: If `@Quantity` is less than or equal to zero.
+- **Duplicate Return**: If the order has already been marked as `'Returned'`.
+
+---
+
+## ✅ Success Outcome
+
+If all validations pass and no errors occur:
+- The order is marked as returned.
+- The product quantity is restocked.
+- Payment is refunded.
+- The return is logged for future reference.
+
+---
+
+## 📌 Notes
+
+- This procedure assumes one product per return. For multi-product returns, consider using a table-valued parameter.
+- The return date is captured using `GETDATE()` and stored as a `DATE`.
+---
 
 ## 🗃️ Database Schema
 
