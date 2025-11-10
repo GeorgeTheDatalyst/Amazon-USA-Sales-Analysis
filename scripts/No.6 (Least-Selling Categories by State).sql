@@ -13,10 +13,12 @@ WITH product_origin AS(
 	LEFT JOIN category c ON p.category_id=c.category_id
 	GROUP BY c.category_name,s.origin
 	),
-category_performance_rank AS (SELECT *, ROUND(SUM(revenue) OVER(PARTITION BY origin ORDER BY category_name),2) AS cumulative_revenue, ROW_NUMBER() OVER(PARTITION BY origin ORDER BY category_name) AS category_rank
-FROM product_origin)
+category_performance_rank AS (
+	SELECT *, ROUND(SUM(revenue) OVER(PARTITION BY origin ORDER BY category_name),2) AS cumulative_revenue, ROW_NUMBER() OVER(PARTITION BY origin ORDER BY revenue ASC) AS category_rank
+	FROM product_origin)
 SELECT category_name,origin,revenue
 FROM category_performance_rank
 WHERE category_rank=1
+
 
 
